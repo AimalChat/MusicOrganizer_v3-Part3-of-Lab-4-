@@ -20,7 +20,7 @@ Lab report (part a = question, part b = answer)
 21a.Create a MusicOrganizer and store a few file names in it. Use the listAllFiles 
 method to print them out; check that the method works as it should.
 
-21b.
+21b.It does work as intended.
 
 22a.Create an ArrayList<String> in the Code Pad by typing the following two lines:
 import java.util.ArrayList;
@@ -32,13 +32,14 @@ from the Code Pad. You can access objects on the object bench from the Code Pad 
 using their names. For example, if you have an ArrayList named al1 on the object bench, 
 in the Code Pad you can type: al1.size()
 
-22b.
+22b.Done.
 
 23a.If you wish, you could use the debugger to help you understand how the statements 
 in the body of the loop in listAllFiles are repeated. Set a breakpoint just before the 
 loop, and step through the method until the loop has processed all elements and exits.
 
-23b.
+23b.They're(The tracks) set as local variables, which makes sense since I added them 
+into the list from this object.
 
 24a.Challenge exercise The for-each loop does not use an explicit integer variable to 
 access successive elements of the list. Thus, if we want to include the index of each 
@@ -57,19 +58,53 @@ variable declaration of position in the method, as well as a statement that upda
 variable's value by one inside the for-each loop.
 
 24b.
+   /**
+* Show a list of all the files in the collection.
+*/
+public void listWithIndex()
+{
+   int position = 0;
+   for(String filename : files) {
+      System.out.println(position +": "+ filename);
+      position ++;
+   }
+}
 
 25a.Add the listMatching method in Code 4.4 to your version of the project. (Use music-
 organizer-v3 if you do not already have your own version.) Check that the method only 
 lists matching files. Also try it with a search string that matches none of the file 
 names. Is anything at all printed in this case?
 
-25b.
+25b.It does show files that contain the inputted String when it is included in the name
+of the filename. It shows nothing when there are no matches.
 
 26a.Challenge exercise In listMatching, can you find a way to print a message, once the 
 for-each loop has finished, if no file names matched the search string? Hint: Use a 
 boolean local variable.
 
 26b.
+    /**
+     * List the names of files matching the given search string.
+     * @param searchString The string to match.
+     */
+    public void listMatching(String searchString)
+    {
+        boolean found;
+        found = false;
+        for(String filename : files){
+            if(filename.contains(searchString)){
+                //A match.
+                found = true;
+                System.out.println(filename);
+            }else{
+                //Unable to find a match.
+                System.out.print("");
+            }
+        }
+        if(found == false){
+                System.out.print("No matching files.");
+            }
+    }
 
 27a.Write a method in your version of the project that plays samples of all the tracks 
 by a particular artist, one after the other. The listMatching method illustrates the 
@@ -79,9 +114,27 @@ v3). The playsample method plays the beginning of a track (about 15 seconds) and
 returns.
 
 27b.
+    public void playAllSamples(String searchString){
+        MusicPlayer player = new MusicPlayer();
+        boolean found;
+        found = false;
+        for(String filename : files){
+            if(filename.contains(searchString)){
+                //A match.
+                found = true;
+                System.out.println(filename);
+                player.playSample(filename);
+            }else{
+                //Unable to find a match.
+                System.out.print("");
+            }
+        }
+        if(found == false){
+                System.out.print("No matching files.");
+            }
 
 28a.Write out the header of a for-each loop intended to process an ArrayList<Track> 
 called trackList. Don’t worry about the loop’s body. Remember to declare the loop 
 variable to be of the appropriate type.
 
-28b.
+28b. for(Track track : trackList)
